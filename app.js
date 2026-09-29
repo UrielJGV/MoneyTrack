@@ -154,3 +154,77 @@ filtroCategoria.addEventListener("change", function () {
         pintarTabla(movimientosFiltrados);
     }
 });
+// NIVEL 05 - Estadísticas
+
+const totalGastadoElemento = document.getElementById("totalGastado");
+const categoriaMayorGastoElemento = document.getElementById("categoriaMayorGasto");
+
+// Calcula cuánto se ha gastado en cada categoría
+function gastosPorCategoria() {
+
+    return movimientos.reduce(function (acumulador, movimiento) {
+
+        if (movimiento.importe < 0) {
+
+            const categoria = movimiento.categoria;
+
+            if (!acumulador[categoria]) {
+                acumulador[categoria] = 0;
+            }
+
+            acumulador[categoria] += Math.abs(movimiento.importe);
+        }
+
+        return acumulador;
+
+    }, {});
+}
+
+// Busca la categoría donde más dinero se ha gastado
+function obtenerCategoriaMayorGasto() {
+
+    const gastos = gastosPorCategoria();
+
+    let categoriaMayor = "";
+    let cantidadMayor = 0;
+
+    for (let categoria in gastos) {
+
+        if (gastos[categoria] > cantidadMayor) {
+            cantidadMayor = gastos[categoria];
+            categoriaMayor = categoria;
+        }
+    }
+
+    return categoriaMayor;
+}
+// Calcula el total gastado utilizando reduce()
+function calcularTotalGastado() {
+
+    const total = movimientos.reduce(function (acumulador, movimiento) {
+
+        if (movimiento.importe < 0) {
+            return acumulador + movimiento.importe;
+        }
+
+        return acumulador;
+
+    }, 0);
+
+    return total;
+}
+
+// Muestra las estadísticas en la página
+function pintarEstadisticas() {
+
+    const totalGastado = calcularTotalGastado();
+    const categoriaMayor = obtenerCategoriaMayorGasto();
+
+    totalGastadoElemento.textContent = formatearDinero(
+        Math.abs(totalGastado)
+    );
+
+    categoriaMayorGastoElemento.textContent = categoriaMayor;
+}
+
+pintarEstadisticas();
