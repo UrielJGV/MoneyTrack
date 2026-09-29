@@ -127,6 +127,11 @@ function pintarTabla(listaMovimientos) {
             </td>
             <td>${movimiento.categoria}</td>
             <td>${movimiento.fecha}</td>
+            <td>
+                <button class="boton-borrar" onclick="borrarMovimiento(${movimiento.id})">
+                    Borrar
+                </button>
+            </td>
         `;
 
         tablaMovimientos.appendChild(fila);
@@ -136,7 +141,6 @@ function pintarTabla(listaMovimientos) {
 // Mostramos inicialmente todos los movimientos
 pintarTabla(movimientos);
 
-// Cuando cambia el filtro, mostramos solo esa categoría
 filtroCategoria.addEventListener("change", function () {
 
     const categoriaSeleccionada = filtroCategoria.value;
@@ -227,4 +231,104 @@ function pintarEstadisticas() {
     categoriaMayorGastoElemento.textContent = categoriaMayor;
 }
 
+// Actualiza la tabla y las estadísticas
+function refrescar() {
+
+    const categoriaSeleccionada = filtroCategoria.value;
+
+    if (categoriaSeleccionada === "Todas") {
+
+        pintarTabla(movimientos);
+
+    } else {
+
+        const movimientosFiltrados = movimientos.filter(function (movimiento) {
+            return movimiento.categoria === categoriaSeleccionada;
+        });
+
+        pintarTabla(movimientosFiltrados);
+    }
+
+    pintarEstadisticas();
+}
+
 pintarEstadisticas();
+
+// NIVEL 06 - Formulario
+
+const formulario = document.getElementById("formMovimiento");
+const conceptoInput = document.getElementById("concepto");
+const importeInput = document.getElementById("importe");
+const categoriaInput = document.getElementById("categoria");
+
+// Elimina un movimiento por su id
+function borrarMovimiento(id) {
+    const indice = movimientos.findIndex(function (movimiento) {
+        return movimiento.id === id;
+    });
+
+    if (indice !== -1) {
+        movimientos.splice(indice, 1);
+
+        const categoriaSeleccionada = filtroCategoria.value;
+
+        if (categoriaSeleccionada === "Todas") {
+            pintarTabla(movimientos);
+        } else {
+            const movimientosFiltrados = movimientos.filter(function (movimiento) {
+                return movimiento.categoria === categoriaSeleccionada;
+            });
+
+            pintarTabla(movimientosFiltrados);
+        }
+
+        pintarEstadisticas();
+    }
+}
+
+// Añade un nuevo movimiento
+formulario.addEventListener("submit", function (evento) {
+
+    evento.preventDefault();
+
+    const concepto = conceptoInput.value.trim();
+    const importe = Number(importeInput.value);
+    const categoria = categoriaInput.value;
+
+    // Validación
+    if (concepto === "") {
+        alert("El concepto no puede estar vacío.");
+        return;
+    }
+
+    if (isNaN(importe)) {
+        alert("El importe debe ser un número.");
+        return;
+    }
+
+    if (categoria === "") {
+        alert("Debes seleccionar una categoría.");
+        return;
+    }
+
+    // Crear nuevo movimiento
+    const nuevoMovimiento = {
+        id: movimientos.length > 0
+            ? Math.max(...movimientos.map(movimiento => movimiento.id)) + 1
+            : 1,
+
+        concepto: concepto,
+        importe: importe,
+        categoria: categoria,
+        fecha: new Date().toISOString().split("T")[0]
+    };
+
+    // Añadirlo al array
+    movimientos.push(nuevoMovimiento);
+
+    // Limpiar formulario
+    formulario.reset();
+
+    // Actualizar la aplicación
+    refrescar();
+});

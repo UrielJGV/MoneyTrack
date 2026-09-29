@@ -40,3 +40,27 @@ select {
     padding: 8px;
     margin-left: 10px;
 }
+
+/* NIVEL 06 - Formulario */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+input,
+select,
+button {
+    padding: 8px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.boton-borrar {
+    cursor: pointer;
+}
