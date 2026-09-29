@@ -2,43 +2,73 @@
 
 body {
     font-family: Arial, sans-serif;
-    margin: 40px;
+    margin: 0;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 35%, #f5f3ff 100%);
+    color: #1f2937;
 }
 
 h1 {
     text-align: center;
+    color: #0f172a;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+h2 {
+    color: #1d4ed8;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: 600;
+    color: #334155;
+}
+
+select {
+    padding: 8px 12px;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: white;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
 }
 
 th,
 td {
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid #dbeafe;
+    padding: 12px 10px;
     text-align: left;
 }
 
 th {
-    background-color: #eee;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background: #f8fafc;
 }
 
 .ingreso {
-    color: green;
+    color: #16a34a;
     font-weight: bold;
 }
 
 .gasto {
-    color: red;
+    color: #dc2626;
     font-weight: bold;
-}
-
-select {
-    padding: 8px;
-    margin-left: 10px;
 }
 
 /* NIVEL 06 - Formulario */
@@ -46,21 +76,48 @@ select {
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-width: 400px;
+    gap: 12px;
+    max-width: 420px;
     margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.08);
 }
 
 input,
 select,
 button {
-    padding: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.25);
+    border-color: #60a5fa;
 }
 
 button {
     cursor: pointer;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
 }
 
 .boton-borrar {
     cursor: pointer;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    padding: 7px 10px;
+    font-size: 0.9rem;
 }
