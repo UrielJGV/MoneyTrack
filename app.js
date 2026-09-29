@@ -135,3 +135,22 @@ function pintarTabla(listaMovimientos) {
 
 // Mostramos inicialmente todos los movimientos
 pintarTabla(movimientos);
+
+// Cuando cambia el filtro, mostramos solo esa categoría
+filtroCategoria.addEventListener("change", function () {
+
+    const categoriaSeleccionada = filtroCategoria.value;
+
+    if (categoriaSeleccionada === "Todas") {
+
+        pintarTabla(movimientos);
+
+    } else {
+
+        const movimientosFiltrados = movimientos.filter(function (movimiento) {
+            return movimiento.categoria === categoriaSeleccionada;
+        });
+
+        pintarTabla(movimientosFiltrados);
+    }
+});
