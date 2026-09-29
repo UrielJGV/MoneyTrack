@@ -6,7 +6,10 @@ const moneda = "€";
 
 // Función que formatea una cantidad como dinero
 function formatearDinero(cantidad) {
-    return cantidad.toFixed(2).replace(".", ",") + " " + moneda;
+    return new Intl.NumberFormat("es-ES", {
+        style: "currency",
+        currency: "EUR"
+    }).format(cantidad);
 }
 
 console.log("Titular:", titular);
@@ -59,15 +62,6 @@ const movimientos = [
     }
 ];
 
-const saldoInicial = 1000;
-
-function formatearDinero(valor) {
-    return new Intl.NumberFormat("es-ES", {
-        style: "currency",
-        currency: "EUR"
-    }).format(valor);
-}
-
 console.log("Movimientos:", movimientos); 
 // NIVEL 03 - Cálculos con funciones y bucles
 
@@ -105,3 +99,39 @@ function saldoActual() {
 console.log("Total ingresos:", formatearDinero(totalIngresos()));
 console.log("Total gastos:", formatearDinero(totalGastos()));
 console.log("Saldo actual:", formatearDinero(saldoActual()));
+
+// NIVEL 04 - Tabla y filtro
+
+// Obtiene el cuerpo de la tabla
+const tablaMovimientos = document.getElementById("tablaMovimientos");
+
+// Obtiene el selector del filtro
+const filtroCategoria = document.getElementById("filtroCategoria");
+
+// Función que pinta los movimientos en la tabla
+function pintarTabla(listaMovimientos) {
+
+    tablaMovimientos.innerHTML = "";
+
+    for (let movimiento of listaMovimientos) {
+
+        const fila = document.createElement("tr");
+
+        const claseImporte = movimiento.importe > 0 ? "ingreso" : "gasto";
+
+        fila.innerHTML = `
+            <td>${movimiento.id}</td>
+            <td>${movimiento.concepto}</td>
+            <td class="${claseImporte}">
+                ${formatearDinero(movimiento.importe)}
+            </td>
+            <td>${movimiento.categoria}</td>
+            <td>${movimiento.fecha}</td>
+        `;
+
+        tablaMovimientos.appendChild(fila);
+    }
+}
+
+// Mostramos inicialmente todos los movimientos
+pintarTabla(movimientos);

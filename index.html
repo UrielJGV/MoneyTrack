@@ -10,6 +10,33 @@
 
     <h1>MoneyTrack</h1>
 
+    <h2>Movimientos</h2>
+
+    <label for="filtroCategoria">Filtrar por categoría:</label>
+
+    <select id="filtroCategoria">
+        <option value="Todas">Todas</option>
+        <option value="Ingresos">Ingresos</option>
+        <option value="Comida">Comida</option>
+        <option value="Ocio">Ocio</option>
+        <option value="Transporte">Transporte</option>
+    </select>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Concepto</th>
+                <th>Importe</th>
+                <th>Categoría</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+
+        <tbody id="tablaMovimientos">
+        </tbody>
+    </table>
+
     <script src="app.js"></script>
 </body>
 </html>
